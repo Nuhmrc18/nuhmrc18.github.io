@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f7fb">
+  <meta name="description" content="PDF ve Word belgelerini cihazında güvenle görüntüle.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg?v=3" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <title>CepDosya · Belgelerini aç</title>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <a class="brand" href="./"><img src="./icon.svg" alt="CepDosya logosu"><span><strong>CepDosya</strong><small>Belgelerin için güvenli alan</small></span></a>
+    <div class="status"><i></i> Dosyaların cihazında kalır</div>
+  </header>
+  <div class="layout">
+    <main class="main">
+      <section class="intro">
+        <div class="eyebrow">Her cihazda kolay görüntüleme</div>
+        <h1>Dosyanı seç.<br>Hemen aç.</h1>
+        <p>Dosyalarını seçip tarayıcıda görüntüle veya cihazına indir. Dosyalar yalnızca sen seçtiğinde cihazında işlenir.</p>
+      </section>
+      <section class="upload-card">
+        <div class="drop" id="dropzone" tabindex="0" role="button" aria-label="Dosya seç veya buraya bırak">
+          <div class="drop-inner">
+            <div class="file-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3.8h6.5L19 9.3v10.9H7a2 2 0 0 1-2-2V5.8a2 2 0 0 1 2-2Z"/><path d="M13 4v5.5h5.5M8.5 14h7m-7 3h7"/></svg></div>
+            <h2>Belgeni buraya bırak</h2>
+            <p>veya cihazındaki dosyalar arasından seç</p>
+            <button class="button" id="chooseFile" type="button">Dosya seç</button>
+            <input id="fileInput" type="file" accept="*/*" hidden>
+            <div class="formats"><span class="format">TÜM DOSYA TÜRLERİ</span><span class="format">EN FAZLA 50 MB</span></div>
+            <div class="fine" id="selectedInfo">Dosya seçimi cihazındaki dosya seçiciyi açar.</div>
+          </div>
+        </div>
+        <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+        <button class="button lime open-link" id="openSelected" type="button" hidden>Dosyayı yeni sekmede aç →</button>
+      </section>
+    </main>
+    <aside class="rail">
+      <section class="side-card">
+        <h3>Nasıl çalışır?</h3>
+        <ol class="steps">
+          <li><span class="number">1</span><span><b>Dosyanı seç.</b><br>Yalnızca açmak istediğin belgeye izin ver.</span></li>
+          <li><span class="number">2</span><span><b>Yeni sekmede görüntüle.</b><br>PDF, DOCX, medya ve metin dosyaları açılır.</span></li>
+          <li><span class="number">3</span><span><b>Güvenle kullan.</b><br>Belge içeriği cihazından ayrılmaz.</span></li>
+        </ol>
+      </section>
+      <section class="privacy">
+        <div class="privacy-mark" aria-hidden="true">✳</div>
+        <h3>Seçim sende, erişim sınırlı</h3>
+        <p>CepDosya cihazındaki dosyalara kendiliğinden erişmez. Tarayıcının dosya seçicisi yalnızca senin seçtiğin belgeyi açar.</p>
+      </section>
+    </aside>
+  </div>
+  <footer class="footer">CepDosya · Belgelerin cihazında işlenir; hiçbir sunucuya yüklenmez.</footer>
+</div>
+<script src="./app.js" defer></script>
+</body>
+</html>

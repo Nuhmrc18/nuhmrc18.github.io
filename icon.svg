@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Arka plan -->
+  <rect x="24" y="24" width="464" height="464" rx="112" ry="112" fill="#E53935"/>
+  
+  <!-- Modern dosya ikonu -->
+  <g transform="translate(156, 78)">
+    <!-- Ana dosya gövdesi -->
+    <rect x="0" y="0" width="200" height="240" rx="28" ry="28" fill="#FFFFFF"/>
+    
+    <!-- Üst sağ köşe katlama -->
+    <path d="M152 0 L200 48 L200 28 Q200 0 172 0 Z" fill="#FFCDD2"/>
+    
+    <!-- İçerik çizgileri (mavi) -->
+    <rect x="36" y="72" width="128" height="10" rx="5" fill="#1E88E5"/>
+    <rect x="36" y="100" width="100" height="10" rx="5" fill="#1E88E5" opacity="0.7"/>
+    <rect x="36" y="128" width="116" height="10" rx="5" fill="#1E88E5" opacity="0.7"/>
+    
+    <!-- PDF etiketi (mavi) -->
+    <rect x="36" y="170" width="72" height="32" rx="10" fill="#1E88E5"/>
+    <text x="72" y="192" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">PDF</text>
+  </g>
+  
+  <!-- Uygulama adı -->
+  <text x="256" y="400" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">Cepdosya</text>
+  
+  <!-- Alt çizgi (mavi ton) -->
+  <rect x="186" y="428" width="140" height="6" rx="3" fill="#90CAF9" opacity="0.9"/>
+</svg>

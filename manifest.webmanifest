@@ -1,0 +1,14 @@
+{
+  "name": "CepDosya · Belge Görüntüleyici",
+  "short_name": "CepDosya",
+  "description": "PDF ve Word belgelerini cihazında, yüklemeden görüntüle.",
+  "lang": "tr-TR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7fb",
+  "theme_color": "#f5f7fb",
+  "icons": [
+    { "src": "icon.svg?v=3", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
