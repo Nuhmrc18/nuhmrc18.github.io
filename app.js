@@ -22,10 +22,10 @@
     void uploadFeedback.offsetWidth;
     uploadFeedback.className = `upload-feedback is-visible ${success ? 'success' : 'failure'}`;
     if (success) {
-      const dropRect = dropzone.getBoundingClientRect();
       const iconRect = dropzone.querySelector('.file-icon').getBoundingClientRect();
-      uploadFeedback.style.setProperty('--return-x', `${iconRect.left + iconRect.width / 2 - (dropRect.left + dropRect.width / 2)}px`);
-      uploadFeedback.style.setProperty('--return-y', `${iconRect.top + iconRect.height / 2 - (dropRect.top + dropRect.height / 2)}px`);
+      const feedbackRect = uploadFeedback.getBoundingClientRect();
+      uploadFeedback.style.setProperty('--return-x', `${iconRect.left + iconRect.width / 2 - (feedbackRect.left + feedbackRect.width / 2)}px`);
+      uploadFeedback.style.setProperty('--return-y', `${iconRect.top + iconRect.height / 2 - (feedbackRect.top + feedbackRect.height / 2)}px`);
       feedbackTimers.push(setTimeout(() => {
         uploadFeedback.classList.add('is-returning');
         dropzone.classList.add('returning-state');
