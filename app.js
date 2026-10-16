@@ -6,6 +6,7 @@
   const selectedInfo = document.querySelector('#selectedInfo');
   const uploadFeedback = document.querySelector('#uploadFeedback');
   let selectedFile = null;
+  let feedbackTimers = [];
   const maxBytes = 50 * 1024 * 1024;
 
   function showMessage(text) {
@@ -13,18 +14,42 @@
     message.hidden = !text;
   }
   function showFeedback(success) {
+    feedbackTimers.forEach(clearTimeout);
+    feedbackTimers = [];
     uploadFeedback.className = 'upload-feedback';
     dropzone.classList.toggle('success-state', success);
+    dropzone.classList.remove('returning-state');
     void uploadFeedback.offsetWidth;
     uploadFeedback.className = `upload-feedback is-visible ${success ? 'success' : 'failure'}`;
+    if (success) {
+      const dropRect = dropzone.getBoundingClientRect();
+      const iconRect = dropzone.querySelector('.file-icon').getBoundingClientRect();
+      uploadFeedback.style.setProperty('--return-x', `${iconRect.left + iconRect.width / 2 - (dropRect.left + dropRect.width / 2)}px`);
+      uploadFeedback.style.setProperty('--return-y', `${iconRect.top + iconRect.height / 2 - (dropRect.top + dropRect.height / 2)}px`);
+      feedbackTimers.push(setTimeout(() => {
+        uploadFeedback.classList.add('is-returning');
+        dropzone.classList.add('returning-state');
+      }, 3440));
+      feedbackTimers.push(setTimeout(() => {
+        dropzone.classList.remove('success-state', 'returning-state');
+        uploadFeedback.className = 'upload-feedback';
+        uploadFeedback.style.removeProperty('--return-x');
+        uploadFeedback.style.removeProperty('--return-y');
+      }, 4100));
+    }
   }
   function resetSelection() {
+    feedbackTimers.forEach(clearTimeout);
+    feedbackTimers = [];
     selectedFile = null;
     input.value = '';
     openButton.hidden = true;
     showMessage('');
     dropzone.classList.remove('success-state');
+    dropzone.classList.remove('returning-state');
     uploadFeedback.className = 'upload-feedback';
+    uploadFeedback.style.removeProperty('--return-x');
+    uploadFeedback.style.removeProperty('--return-y');
     selectedInfo.textContent = 'Dosya seçimi cihazındaki dosya seçiciyi açar.';
   }
   function extensionOf(file) { return (file.name.split('.').pop() || '').toLowerCase(); }
