@@ -5,7 +5,6 @@
   const openButton = document.querySelector('#openSelected');
   const selectedInfo = document.querySelector('#selectedInfo');
   const uploadFeedback = document.querySelector('#uploadFeedback');
-  const feedbackSymbol = document.querySelector('#feedbackSymbol');
   let selectedFile = null;
   const maxBytes = 50 * 1024 * 1024;
 
@@ -16,7 +15,6 @@
   function showFeedback(success) {
     uploadFeedback.className = 'upload-feedback';
     dropzone.classList.toggle('success-state', success);
-    feedbackSymbol.textContent = success ? '✓' : '×';
     void uploadFeedback.offsetWidth;
     uploadFeedback.className = `upload-feedback is-visible ${success ? 'success' : 'failure'}`;
   }
