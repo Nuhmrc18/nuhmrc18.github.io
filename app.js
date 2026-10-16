@@ -67,7 +67,7 @@
     selectedInfo.textContent = `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB`;
     primaryButton.textContent = extensionOf(file) === 'pdf' ? 'PDF’yi yeni sekmede aç →' : 'Dosyayı yeni sekmede aç →';
     showFeedback(true);
-    showMessage('Dosya hazır. Açmak için aşağıdaki düğmeye bas.');
+    showMessage('');
   }
   async function openFile(file, tab) {
     if (!file) { if (tab && !tab.closed) tab.close(); return; }
