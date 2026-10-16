@@ -2,7 +2,7 @@
   const input = document.querySelector('#fileInput');
   const dropzone = document.querySelector('#dropzone');
   const message = document.querySelector('#message');
-  const openButton = document.querySelector('#openSelected');
+  const primaryButton = document.querySelector('#chooseFile');
   const selectedInfo = document.querySelector('#selectedInfo');
   const uploadFeedback = document.querySelector('#uploadFeedback');
   let selectedFile = null;
@@ -43,7 +43,7 @@
     feedbackTimers = [];
     selectedFile = null;
     input.value = '';
-    openButton.hidden = true;
+    primaryButton.textContent = 'Dosya seç';
     showMessage('');
     dropzone.classList.remove('success-state');
     dropzone.classList.remove('returning-state');
@@ -65,8 +65,7 @@
     if (file.size > maxBytes) { showFeedback(false); return showMessage('Dosya boyutu 50 MB sınırını aşıyor.'); }
     selectedFile = file;
     selectedInfo.textContent = `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB`;
-    openButton.textContent = extensionOf(file) === 'pdf' ? 'PDF’yi yeni sekmede aç →' : 'Dosyayı yeni sekmede aç →';
-    openButton.hidden = false;
+    primaryButton.textContent = extensionOf(file) === 'pdf' ? 'PDF’yi yeni sekmede aç →' : 'Dosyayı yeni sekmede aç →';
     showFeedback(true);
     showMessage('Dosya hazır. Açmak için aşağıdaki düğmeye bas.');
   }
@@ -158,20 +157,18 @@
     );
   }
 
-  document.querySelector('#chooseFile').addEventListener('click', chooseFile);
-  dropzone.addEventListener('click', event => { if (!event.target.closest('button')) chooseFile(); });
-  dropzone.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); chooseFile(); } });
-  input.addEventListener('change', () => selectFile(input.files[0]));
-  openButton.addEventListener('click', () => {
-    if (!selectedFile) return;
+  primaryButton.addEventListener('click', () => {
+    if (!selectedFile) return chooseFile();
     const file = selectedFile;
     const tab = window.open('about:blank', '_blank');
     if (!tab) { showFeedback(false); return showMessage('Yeni sekme açılamadı.'); }
     tab.document.title = 'CepDosya · Belge hazırlanıyor';
     tab.document.body.textContent = 'Belgen hazırlanıyor…';
-    openButton.hidden = true;
     openFile(file, tab);
   });
+  dropzone.addEventListener('click', event => { if (!event.target.closest('button') && !selectedFile) chooseFile(); });
+  dropzone.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); selectedFile ? primaryButton.click() : chooseFile(); } });
+  input.addEventListener('change', () => selectFile(input.files[0]));
   for (const eventName of ['dragenter', 'dragover']) dropzone.addEventListener(eventName, event => { event.preventDefault(); dropzone.classList.add('dragging'); });
   for (const eventName of ['dragleave', 'drop']) dropzone.addEventListener(eventName, event => { event.preventDefault(); dropzone.classList.remove('dragging'); });
   dropzone.addEventListener('drop', event => selectFile(event.dataTransfer.files[0]));
