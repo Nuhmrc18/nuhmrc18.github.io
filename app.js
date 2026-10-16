@@ -15,6 +15,7 @@
   }
   function showFeedback(success) {
     uploadFeedback.className = 'upload-feedback';
+    dropzone.classList.toggle('success-state', success);
     feedbackSymbol.textContent = success ? '✓' : '×';
     void uploadFeedback.offsetWidth;
     uploadFeedback.className = `upload-feedback is-visible ${success ? 'success' : 'failure'}`;
@@ -24,6 +25,7 @@
     input.value = '';
     openButton.hidden = true;
     showMessage('');
+    dropzone.classList.remove('success-state');
     uploadFeedback.className = 'upload-feedback';
     selectedInfo.textContent = 'Dosya seçimi cihazındaki dosya seçiciyi açar.';
   }
@@ -66,6 +68,7 @@
         url = URL.createObjectURL(new Blob([fallbackPage(file, downloadUrl)], { type: 'text/html;charset=utf-8' }));
       }
       if (tab) tab.location.replace(url);
+      resetSelection();
       showMessage(`${file.name} yeni sekmede açıldı.`);
     } catch (error) {
       if (tab && !tab.closed) tab.close();
