@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr">
+<html lang="tr" class="aos-enabled">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -12,17 +12,18 @@
 </head>
 <body>
 <div class="app">
-  <header class="topbar">
+  <header class="topbar" data-aos="fade-down">
     <a class="brand" href="./"><img src="./icon.svg" alt="CepDosya logosu"><span><strong>CepDosya</strong><small>Belgelerin için güvenli alan</small></span></a>
   </header>
   <div class="layout">
     <main class="main">
-      <section class="intro">
+      <section class="intro" data-aos="fade-up">
         <div class="eyebrow">Her cihazda kolay görüntüleme</div>
         <h1>Dosyanı seç.<br>Hemen aç.</h1>
       </section>
-      <section class="upload-card">
+      <section class="upload-card" data-aos="fade-up" data-aos-delay="100">
         <div class="drop" id="dropzone" tabindex="0" role="button" aria-label="Dosya seç veya buraya bırak">
+          <div class="upload-feedback" id="uploadFeedback" aria-hidden="true"><span id="feedbackSymbol">✓</span></div>
           <div class="drop-inner">
             <div class="file-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3.8h6.5L19 9.3v10.9H7a2 2 0 0 1-2-2V5.8a2 2 0 0 1 2-2Z"/><path d="M13 4v5.5h5.5M8.5 14h7m-7 3h7"/></svg></div>
             <h2>Belgeni buraya bırak</h2>
@@ -38,7 +39,7 @@
       </section>
     </main>
     <aside class="rail">
-      <section class="side-card">
+      <section class="side-card" data-aos="fade-left" data-aos-delay="180">
         <h3>Nasıl çalışır?</h3>
         <ol class="steps">
           <li><span class="number">1</span><span><b>Dosyanı seç.</b><br>Yalnızca açmak istediğin belgeye izin ver.</span></li>

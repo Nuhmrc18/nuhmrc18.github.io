@@ -4,6 +4,8 @@
   const message = document.querySelector('#message');
   const openButton = document.querySelector('#openSelected');
   const selectedInfo = document.querySelector('#selectedInfo');
+  const uploadFeedback = document.querySelector('#uploadFeedback');
+  const feedbackSymbol = document.querySelector('#feedbackSymbol');
   let selectedFile = null;
   const maxBytes = 50 * 1024 * 1024;
 
@@ -11,11 +13,18 @@
     message.textContent = text;
     message.hidden = !text;
   }
+  function showFeedback(success) {
+    uploadFeedback.className = 'upload-feedback';
+    feedbackSymbol.textContent = success ? '✓' : '×';
+    void uploadFeedback.offsetWidth;
+    uploadFeedback.className = `upload-feedback is-visible ${success ? 'success' : 'failure'}`;
+  }
   function resetSelection() {
     selectedFile = null;
     input.value = '';
     openButton.hidden = true;
     showMessage('');
+    uploadFeedback.className = 'upload-feedback';
     selectedInfo.textContent = 'Dosya seçimi cihazındaki dosya seçiciyi açar.';
   }
   function extensionOf(file) { return (file.name.split('.').pop() || '').toLowerCase(); }
@@ -28,11 +37,12 @@
   function selectFile(file) {
     resetSelection();
     if (!file) return;
-    if (file.size > maxBytes) return showMessage('Dosya boyutu 50 MB sınırını aşıyor.');
+    if (file.size > maxBytes) { showFeedback(false); return showMessage('Dosya boyutu 50 MB sınırını aşıyor.'); }
     selectedFile = file;
     selectedInfo.textContent = `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB`;
     openButton.textContent = extensionOf(file) === 'pdf' ? 'PDF’yi yeni sekmede aç →' : 'Dosyayı yeni sekmede aç →';
     openButton.hidden = false;
+    showFeedback(true);
     showMessage('Dosya hazır. Açmak için aşağıdaki düğmeye bas.');
   }
   async function openFile(file, tab) {
@@ -59,6 +69,7 @@
       showMessage(`${file.name} yeni sekmede açıldı.`);
     } catch (error) {
       if (tab && !tab.closed) tab.close();
+      showFeedback(false);
       showMessage(error instanceof Error ? error.message : 'Dosya açılamadı.');
     }
   }
@@ -129,7 +140,7 @@
     if (!selectedFile) return;
     const file = selectedFile;
     const tab = window.open('about:blank', '_blank');
-    if (!tab) return showMessage('Yeni sekme açılamadı. Tarayıcı bu site için açılır pencereleri engelliyor olabilir.');
+    if (!tab) { showFeedback(false); return showMessage('Yeni sekme açılamadı.'); }
     tab.document.title = 'CepDosya · Belge hazırlanıyor';
     tab.document.body.textContent = 'Belgen hazırlanıyor…';
     openButton.hidden = true;
@@ -138,6 +149,24 @@
   for (const eventName of ['dragenter', 'dragover']) dropzone.addEventListener(eventName, event => { event.preventDefault(); dropzone.classList.add('dragging'); });
   for (const eventName of ['dragleave', 'drop']) dropzone.addEventListener(eventName, event => { event.preventDefault(); dropzone.classList.remove('dragging'); });
   dropzone.addEventListener('drop', event => selectFile(event.dataTransfer.files[0]));
+
+  function initAOS() {
+    const items = document.querySelectorAll('[data-aos]');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(item => item.classList.add('aos-animate'));
+      return;
+    }
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const delay = Number(entry.target.dataset.aosDelay || 0);
+        window.setTimeout(() => entry.target.classList.add('aos-animate'), delay);
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -24px 0px' });
+    items.forEach(item => observer.observe(item));
+  }
+  initAOS();
 
   if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
     window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
