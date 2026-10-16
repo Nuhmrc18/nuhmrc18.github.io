@@ -4,6 +4,8 @@
   const message = document.querySelector('#message');
   const primaryButton = document.querySelector('#chooseFile');
   const selectedInfo = document.querySelector('#selectedInfo');
+  const dropTitle = dropzone.querySelector('h2');
+  const dropHint = dropzone.querySelector('.drop-inner p');
   const uploadFeedback = document.querySelector('#uploadFeedback');
   let selectedFile = null;
   let feedbackTimers = [];
@@ -51,6 +53,8 @@
     uploadFeedback.style.removeProperty('--return-x');
     uploadFeedback.style.removeProperty('--return-y');
     selectedInfo.textContent = 'Dosya seçimi cihazındaki dosya seçiciyi açar.';
+    dropTitle.textContent = 'Belgenizi Buraya Bırakın';
+    dropHint.hidden = false;
   }
   function extensionOf(file) { return (file.name.split('.').pop() || '').toLowerCase(); }
   function escapeHtml(value) {
@@ -64,6 +68,8 @@
     if (!file) return;
     if (file.size > maxBytes) { showFeedback(false); return showMessage('Dosya boyutu 50 MB sınırını aşıyor.'); }
     selectedFile = file;
+    dropTitle.textContent = 'Dosyanız Hazır';
+    dropHint.hidden = true;
     selectedInfo.textContent = `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB`;
     primaryButton.textContent = extensionOf(file) === 'pdf' ? 'PDF’yi yeni sekmede aç →' : 'Dosyayı yeni sekmede aç →';
     showFeedback(true);
