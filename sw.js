@@ -1,4 +1,4 @@
-const CACHE = 'cep-dosya-static-v5';
+const CACHE = 'cep-dosya-static-v6';
 const SHELL = ['./', './index.html', './style.css', './app.js', './offline.html', './manifest.webmanifest', './icon.svg?v=3'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL)));
@@ -25,4 +25,5 @@ self.addEventListener('fetch', event => {
     return Response.error();
   }));
 });
+
 

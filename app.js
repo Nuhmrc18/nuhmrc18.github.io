@@ -156,15 +156,26 @@
       items.forEach(item => item.classList.add('aos-animate'));
       return;
     }
+    const activate = entry => {
+      const delay = Number(entry.target.dataset.aosDelay || 0);
+      entry.target.style.transitionDelay = `${delay}ms`;
+      entry.target.classList.toggle('aos-animate', entry.isIntersecting);
+    };
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const delay = Number(entry.target.dataset.aosDelay || 0);
-        window.setTimeout(() => entry.target.classList.add('aos-animate'), delay);
-        observer.unobserve(entry.target);
+        activate(entry);
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -24px 0px' });
+    }, { threshold: 0.04, rootMargin: '0px 0px -12px 0px' });
     items.forEach(item => observer.observe(item));
+    window.setTimeout(() => {
+      items.forEach(item => {
+        const rect = item.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          item.style.transitionDelay = `${Number(item.dataset.aosDelay || 0)}ms`;
+          item.classList.add('aos-animate');
+        }
+      });
+    }, 120);
   }
   initAOS();
 
