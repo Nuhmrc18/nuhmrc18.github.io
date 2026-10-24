@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#f5f7fb">
-  <meta name="description" content="PDF ve Word belgelerini cihazında güvenle görüntüle.">
+  <meta name="description" content="PDF ve Excel dosyalarını cihazında güvenle aç.">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon.svg?v=3" type="image/svg+xml">
   <link rel="stylesheet" href="./style.css">
@@ -27,10 +27,10 @@
           <div class="drop-inner">
             <div class="file-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3.8h6.5L19 9.3v10.9H7a2 2 0 0 1-2-2V5.8a2 2 0 0 1 2-2Z"/><path d="M13 4v5.5h5.5M8.5 14h7m-7 3h7"/></svg></div>
             <h2>Belgenizi Buraya Bırakın</h2>
-            <p>veya cihazındaki dosyalar arasından seç</p>
+            <p>PDF veya Excel dosyanı seç ya da buraya bırak</p>
             <button class="button" id="chooseFile" type="button">Dosya seç</button>
-            <input id="fileInput" type="file" accept="*/*" hidden>
-            <div class="formats"><span class="format">TÜM DOSYA TÜRLERİ</span><span class="format">EN FAZLA 50 MB</span></div>
+            <input id="fileInput" type="file" accept=".pdf,.xls,.xlsx,.xlsm,.xlsb,.csv,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv" hidden>
+            <div class="formats"><span class="format">PDF VE EXCEL</span><span class="format">EN FAZLA 50 MB</span></div>
             <div class="fine" id="selectedInfo">Dosya seçimi cihazındaki dosya seçiciyi açar.</div>
           </div>
         </div>
@@ -41,8 +41,8 @@
       <section class="side-card" data-aos="fade-left" data-aos-delay="180">
         <h3>Nasıl çalışır?</h3>
         <ol class="steps">
-          <li><span class="number">1</span><span><b>Dosyanı seç.</b><br>Yalnızca açmak istediğin belgeye izin ver.</span></li>
-          <li><span class="number">2</span><span><b>Yeni sekmede görüntüle.</b><br>PDF, DOCX, medya ve metin dosyaları açılır.</span></li>
+          <li><span class="number">1</span><span><b>PDF veya Excel dosyanı seç.</b><br>Diğer dosya türleri kabul edilmez.</span></li>
+          <li><span class="number">2</span><span><b>Yeni sekmede aç.</b><br>PDF ve Excel dosyaları cihazında işlenir.</span></li>
           <li><span class="number">3</span><span><b>Güvenle kullan.</b><br>Belge içeriği cihazından ayrılmaz.</span></li>
         </ol>
       </section>
